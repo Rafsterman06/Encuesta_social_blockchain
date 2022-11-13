@@ -6,9 +6,10 @@ contract encuesta {
 
     uint siguiente_id;
     uint siguiente_usuario;
-
+    uint n_usuarios;
 
     struct respuestas{
+        uint id;
         bool[] respuestas;
     }
     
@@ -58,17 +59,27 @@ contract encuesta {
     }
 
     function ingresar_usuario(uint _ID) public returns (bool){
-        for (uint i = 0; i < usuarios.length; i++){
-            if (usuarios[i].ID == _ID){
+        for (uint i = 0; i < n_usuarios; i++){
+            if (usuarios[_ID].id == _ID){
                 return false;
             }
-            usuarios[_ID] = [];
-            return true;
-        }
-        
-    
 
+            usuarios[_ID].id = _ID;
+            return true;
+        }        
     }
+    //Las respuestas son predeterminadas true por el momento
+    function respuestas_(uint _id_usuario) public{
+        for (uint i = 0; i < n_usuarios; i++){
+            if (usuarios[_id_usuario].id == _id_usuario){
+                for (uint j=0; j < preguntas.length; j++){
+                    usuarios[_id_usuario].respuestas.push(true);
+                }        
+            }        
+        }
+    }
+
+    
 
 
 }
